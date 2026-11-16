@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevTask — Fase 2 TypeScript</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header>
+      <h1>DevTask 🚀 <small>Fase 2 · TypeScript</small></h1>
+    </header>
+
+    <section class="form-section">
+      <form id="form-tareas">
+        <input type="text" id="input-titulo" placeholder="¿Qué tienes que programar hoy?..." required>
+        <select id="select-prioridad" aria-label="Prioridad">
+          <option value="Alta">Alta</option>
+          <option value="Media" selected>Media</option>
+          <option value="Baja">Baja</option>
+        </select>
+        <button type="submit">Añadir tarea</button>
+      </form>
+    </section>
+
+    <section class="filter-section" aria-label="Filtrar tareas">
+      <button type="button" class="btn-filtro active" data-filtro="Todas">Todas</button>
+      <button type="button" class="btn-filtro" data-filtro="Pendientes">Pendientes</button>
+      <button type="button" class="btn-filtro" data-filtro="Completadas">Completadas</button>
+    </section>
+
+    <main class="tasks-section">
+      <div id="loading-state" class="loading" role="status">Cargando tareas...</div>
+      <h2>Lista interactiva</h2>
+      <ul id="lista-tareas"></ul>
+      <h2>Lista espejo (solo lectura)</h2>
+      <ul id="lista-espejo"></ul>
+    </main>
+  </div>
+  <script type="module" src="./dist/app.js"></script>
+</body>
+</html>
