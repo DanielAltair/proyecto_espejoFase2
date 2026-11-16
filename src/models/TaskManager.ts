@@ -43,4 +43,22 @@ export class TaskManager {
     this.pintarTareas();
     this.inputTitulo.focus();
   }
+
+  
+  /** Dibuja la lista interactiva y su réplica de solo lectura. */
+  public pintarTareas(): void {
+    const filtro = this.obtenerFiltroActual();
+    const tareasFiltradas = this.tareas.filter((tarea) => {
+      if (filtro === 'Pendientes') return !tarea.completada;
+      if (filtro === 'Completadas') return tarea.completada;
+      return true;
+    });
+
+    this.listaTareas.replaceChildren(
+      ...tareasFiltradas.map((tarea) => this.crearElementoTarea(tarea, true)),
+    );
+    this.listaEspejo.replaceChildren(
+      ...tareasFiltradas.map((tarea) => this.crearElementoTarea(tarea, false)),
+    );
+  }
 }
