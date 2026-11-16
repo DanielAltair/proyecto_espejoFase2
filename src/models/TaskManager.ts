@@ -107,4 +107,22 @@ export class TaskManager {
       { id: ahora + 2, titulo: 'Migrar el proyecto a Angular', prioridad: 'Baja', completada: false },
     ];
   }
+
+   private registrarEventos(): void {
+    this.formulario.addEventListener('submit', (event: SubmitEvent) => this.agregarTarea(event));
+    this.listaTareas.addEventListener('click', (event: MouseEvent) => this.cambiarEstado(event));
+    this.inputTitulo.addEventListener('input', () => this.inputTitulo.setCustomValidity(''));
+
+    this.botonesFiltro.forEach((boton) => {
+      boton.addEventListener('click', () => {
+        const filtro = boton.dataset.filtro;
+        if (!this.esFiltro(filtro)) return;
+        this.filtroActual = filtro;
+        this.botonesFiltro.forEach((otroBoton) => {
+          otroBoton.classList.toggle('active', otroBoton === boton);
+        });
+        this.pintarTareas();
+      });
+    });
+  }
 }
