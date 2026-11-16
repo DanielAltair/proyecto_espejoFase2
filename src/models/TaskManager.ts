@@ -61,4 +61,19 @@ export class TaskManager {
       ...tareasFiltradas.map((tarea) => this.crearElementoTarea(tarea, false)),
     );
   }
+
+    /** Cambia el estado de la tarea indicada por el botón pulsado. */
+  public cambiarEstado(event: MouseEvent): void {
+    const objetivo = event.target;
+    if (!(objetivo instanceof HTMLButtonElement) || !objetivo.classList.contains('btn-accion')) return;
+
+    const id = Number(objetivo.dataset.id);
+    if (!Number.isInteger(id)) return;
+
+    this.tareas = this.tareas.map((tarea) =>
+      tarea.id === id ? { ...tarea, completada: !tarea.completada } : tarea,
+    );
+    this.guardarTareas();
+    this.pintarTareas();
+  }
 }
