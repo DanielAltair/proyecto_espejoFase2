@@ -154,4 +154,12 @@ export class TaskManager {
     elemento.append(boton);
     return elemento;
   }
+
+   private guardarTareas(): void {
+    try {
+      localStorage.setItem(this.claveAlmacenamiento, JSON.stringify(this.tareas));
+    } catch {
+      // La aplicación sigue funcionando durante la sesión aunque el navegador bloquee el almacenamiento.
+    }
+  }
 }
