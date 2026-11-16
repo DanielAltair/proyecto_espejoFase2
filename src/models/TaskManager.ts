@@ -76,4 +76,10 @@ export class TaskManager {
     this.guardarTareas();
     this.pintarTareas();
   }
+
+   private obtenerElemento<T extends HTMLElement>(selector: string): T {
+    const elemento = document.querySelector<T>(selector);
+    if (!elemento) throw new Error(`No se encontró el elemento requerido: ${selector}`);
+    return elemento;
+  }
 }
