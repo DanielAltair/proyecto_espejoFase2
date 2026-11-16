@@ -82,4 +82,29 @@ export class TaskManager {
     if (!elemento) throw new Error(`No se encontró el elemento requerido: ${selector}`);
     return elemento;
   }
+
+    private comprobarDatosPrevios(): void {
+    try {
+      const guardadas = localStorage.getItem(this.claveAlmacenamiento);
+      if (guardadas !== null) {
+        const datos: unknown = JSON.parse(guardadas);
+        if (Array.isArray(datos)) {
+          const tareasGuardadas: unknown[] = datos;
+          if (tareasGuardadas.every((dato: unknown): dato is Tarea => this.esTarea(dato))) {
+            this.tareas = tareasGuardadas;
+            return;
+          }
+        }
+      }
+    } catch {
+      // Si el almacenamiento no está disponible o contiene JSON inválido, se usan datos iniciales.
+    }
+
+    const ahora = Date.now();
+    this.tareas = [
+      { id: ahora, titulo: 'Aprender la sintaxis de ES6', prioridad: 'Alta', completada: true },
+      { id: ahora + 1, titulo: 'Dominar la asincronía y Fetch', prioridad: 'Media', completada: false },
+      { id: ahora + 2, titulo: 'Migrar el proyecto a Angular', prioridad: 'Baja', completada: false },
+    ];
+  }
 }
