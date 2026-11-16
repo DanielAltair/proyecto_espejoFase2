@@ -18,4 +18,29 @@ export class TaskManager {
   public constructor() {
          // Aquí inicializaremos las tareas y conectaremos los eventos.
   }
+
+   /** Añade una tarea desde el evento submit del formulario. */
+  public agregarTarea(event: SubmitEvent): void {
+    event.preventDefault();
+    const titulo = this.inputTitulo.value.trim();
+    const prioridad = this.selectPrioridad.value;
+
+    if (!titulo || !this.esPrioridad(prioridad)) {
+      this.inputTitulo.setCustomValidity('Escribe un título para la tarea.');
+      this.inputTitulo.reportValidity();
+      return;
+    }
+
+    this.inputTitulo.setCustomValidity('');
+    this.tareas = [...this.tareas, {
+      id: this.generarId(),
+      titulo,
+      prioridad,
+      completada: false,
+    }];
+    this.guardarTareas();
+    this.formulario.reset();
+    this.pintarTareas();
+    this.inputTitulo.focus();
+  }
 }
