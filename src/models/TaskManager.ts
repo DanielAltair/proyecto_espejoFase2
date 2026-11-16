@@ -125,4 +125,33 @@ export class TaskManager {
       });
     });
   }
+
+   private async inicializarEntorno(): Promise<void> {
+    await new Promise<void>((resolve) => window.setTimeout(resolve, 400));
+    this.estadoCarga.hidden = true;
+    this.pintarTareas();
+  }
+
+  private crearElementoTarea(tarea: Tarea, interactiva: boolean): HTMLLIElement {
+    const elemento = document.createElement('li');
+    elemento.classList.add('item-tarea', tarea.prioridad);
+    if (tarea.completada) elemento.classList.add('completada');
+
+    if (!interactiva) {
+      elemento.textContent = `${tarea.titulo} — Estado: ${tarea.completada ? 'Hecho' : 'Pendiente'}`;
+      return elemento;
+    }
+
+    const titulo = document.createElement('span');
+    titulo.textContent = tarea.titulo;
+    elemento.append(titulo);
+
+    const boton = document.createElement('button');
+    boton.type = 'button';
+    boton.classList.add('btn-accion');
+    boton.dataset.id = String(tarea.id);
+    boton.textContent = tarea.completada ? 'Marcar pendiente' : 'Marcar completada';
+    elemento.append(boton);
+    return elemento;
+  }
 }
