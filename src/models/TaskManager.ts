@@ -162,4 +162,9 @@ export class TaskManager {
       // La aplicación sigue funcionando durante la sesión aunque el navegador bloquee el almacenamiento.
     }
   }
+
+   private generarId(): number {
+    const mayorId = this.tareas.reduce((mayor, tarea) => Math.max(mayor, tarea.id), 0);
+    return Math.max(Date.now(), mayorId + 1);
+  }
 }
