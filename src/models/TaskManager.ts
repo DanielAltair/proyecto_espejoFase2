@@ -16,7 +16,17 @@ export class TaskManager {
   private readonly claveAlmacenamiento = 'devtask-tareas';
 
   public constructor() {
-         // Aquí inicializaremos las tareas y conectaremos los eventos.
+    this.formulario = this.obtenerElemento<HTMLFormElement>('#form-tareas');
+    this.inputTitulo = this.obtenerElemento<HTMLInputElement>('#input-titulo');
+    this.selectPrioridad = this.obtenerElemento<HTMLSelectElement>('#select-prioridad');
+    this.listaTareas = this.obtenerElemento<HTMLUListElement>('#lista-tareas');
+    this.listaEspejo = this.obtenerElemento<HTMLUListElement>('#lista-espejo');
+    this.estadoCarga = this.obtenerElemento<HTMLDivElement>('#loading-state');
+    this.botonesFiltro = document.querySelectorAll<HTMLButtonElement>('.btn-filtro');
+
+    this.comprobarDatosPrevios();
+    this.registrarEventos();
+    void this.inicializarEntorno();
   }
 
    /** Añade una tarea desde el evento submit del formulario. */
