@@ -171,4 +171,21 @@ export class TaskManager {
    private obtenerFiltroActual(): FiltroTareas {
     return this.esFiltro(this.filtroActual) ? this.filtroActual : 'Todas';
   }
+
+  private esTarea(valor: unknown): valor is Tarea {
+    if (typeof valor !== 'object' || valor === null) return false;
+    const registro = valor as Record<string, unknown>;
+    return typeof registro.id === 'number'
+      && typeof registro.titulo === 'string'
+      && this.esPrioridad(registro.prioridad)
+      && typeof registro.completada === 'boolean';
+  }
+
+  private esPrioridad(valor: unknown): valor is Prioridad {
+    return valor === 'Alta' || valor === 'Media' || valor === 'Baja';
+  }
+
+  private esFiltro(valor: string | undefined): valor is FiltroTareas {
+    return valor === 'Todas' || valor === 'Pendientes' || valor === 'Completadas';
+  }
 }
