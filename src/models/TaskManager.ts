@@ -167,4 +167,8 @@ export class TaskManager {
     const mayorId = this.tareas.reduce((mayor, tarea) => Math.max(mayor, tarea.id), 0);
     return Math.max(Date.now(), mayorId + 1);
   }
+
+   private obtenerFiltroActual(): FiltroTareas {
+    return this.esFiltro(this.filtroActual) ? this.filtroActual : 'Todas';
+  }
 }
